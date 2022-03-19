@@ -5,4 +5,4 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Skeleton Created.")
+    return render(request, 'EvacApp/index.html', context={})
