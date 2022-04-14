@@ -23,6 +23,7 @@ class TestCustomUserCreationForm(TestCase):
         )
         userForm = CustomUserCreationForm(
             data={'username': 'username', 'password1': 'password', 'password2': 'password'})
+
         if userForm.is_valid():
             user1 = userForm.save()
             self.assertEquals(user1.username, user.username)
