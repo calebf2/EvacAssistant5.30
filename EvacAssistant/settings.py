@@ -117,6 +117,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+GOOGLE_API_KEY = 'AIzaSyBNSTtqV5RZuxTUWKrJyiML9U6p0FIVu5c'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
