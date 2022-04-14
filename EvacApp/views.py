@@ -16,12 +16,14 @@ def index(request):
 
 def register(request):
     if request.POST == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Your account has been created. You are now able to login.')
+            return redirect('')
 
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     context = {
         'form': form
     }
