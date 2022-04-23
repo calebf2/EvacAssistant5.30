@@ -28,3 +28,4 @@ def register(request):
         'form': form
     }
     return render(request, 'EvacApp/register.html', context)
+
