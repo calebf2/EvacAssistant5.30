@@ -20,8 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('EvacApp.urls')),
     path('register', include('EvacApp.urls'))
-    path('', include('main.urls', namespace="main"))
+    # path('', include('main.urls', namespace="main"))
 ]
 
-#if settings.DEBUG:
+# if settings.DEBUG:
 #    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
