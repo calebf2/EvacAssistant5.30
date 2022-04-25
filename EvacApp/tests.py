@@ -33,12 +33,12 @@ class TestCustomUserCreationForm(TestCase):
 
 class TestUrls(TestCase):
 
-    def test_homepage(self):
+    def test_home_page(self):
         c = Client()
         response = c.post('')
         self.assertEquals(response.status_code, 200)
 
-    def test_registerpage(self):
+    def test_register_page(self):
         c = Client()
         response = c.post('/register/')
         self.assertEquals(response.status_code, 200)
