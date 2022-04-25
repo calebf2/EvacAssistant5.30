@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
-from django.test import TestCase
-from django.urls import reverse
+from django.test import TestCase, Client
+from django.urls import reverse, resolve
 from django import forms
 
+from EvacApp import views
 from EvacApp.forms import CustomUserCreationForm
 
 
@@ -28,3 +29,16 @@ class TestCustomUserCreationForm(TestCase):
             user1 = userForm.save()
             self.assertEquals(user1.username, user.username)
             self.assertEquals(user1.password1, user.password)
+
+
+class TestUrls(TestCase):
+
+    def test_homepage(self):
+        c = Client()
+        response = c.post('')
+        self.assertEquals(response.status_code, 200)
+
+    def test_registerpage(self):
+        c = Client()
+        response = c.post('/register/')
+        self.assertEquals(response.status_code, 200)
