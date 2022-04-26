@@ -2,7 +2,10 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from django import forms
+from bs4 import BeautifulSoup
+import requests
 
+import EvacApp.templates.EvacApp
 from EvacApp.forms import CustomUserCreationForm
 
 
@@ -28,3 +31,15 @@ class TestCustomUserCreationForm(TestCase):
             user1 = userForm.save()
             self.assertEquals(user1.username, user.username)
             self.assertEquals(user1.password1, user.password)
+
+
+class TestHTMLPageLinks(TestCase):
+
+    # Tests the index.html file has an href to the register page
+    def test_home_page_link_to_register_page(self):
+
+        soup = BeautifulSoup(open('EvacApp/templates/EvacApp/index.html', 'r'), 'html.parser')
+        link_text = ""
+        for a in soup.find_all('a', href=True):
+            link_text = a['href']
+        self.assertEquals(link_text, '../register/')
