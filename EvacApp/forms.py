@@ -40,3 +40,28 @@ class CustomUserCreationForm(UserCreationForm):
             self.cleaned_data['password2']
         )
         return user
+
+# Form for registering places
+class PlaceProfileForm(forms.ModelForm):
+    address = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
+    town = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
+    county = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
+    zip_code = forms.CharField(max_length=8, required=True, widget=forms.HiddenInput())
+    country = forms.CharField(max_length=40, required=True, widget=forms.HiddenInput())
+    longitude = forms.CharField(max_length=50, required=True, widget=forms.HiddenInput())
+    latitude = forms.CharField(max_length=50, required=True, widget=forms.HiddenInput())
+
+    # Checks for already registered username
+    def address_clean(self):
+        address = self.cleaned_data['address'].lower()
+        new = User.objects.filter(username=address)
+        if new.count():
+            raise ValidationError("Address Already Exist")
+        return address
+
+    # Saves the username and passwords to the user
+    def save_addr(self, commit=True):
+        user = User.objects.create_user(
+            self.cleaned_data['address'],
+        )
+        return user

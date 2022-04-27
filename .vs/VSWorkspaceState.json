@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\djangoEvac",
+    "\\djangoEvac\\Include",
     "\\EvacApp",
-    "\\EvacApp\\migrations",
-    "\\EvacApp\\static",
+    "\\EvacApp\\static\\css",
     "\\EvacAssistant"
   ],
-  "SelectedNode": "\\EvacAssistant\\urls.py",
+  "SelectedNode": "\\EvacAssistant\\settings.py",
   "PreviewInSolutionExplorer": false
 }
