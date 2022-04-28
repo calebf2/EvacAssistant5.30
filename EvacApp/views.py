@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import forms
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, PlaceProfileForm
 
 
 # Create your views here.
@@ -28,3 +28,19 @@ def register(request):
         'form': form
     }
     return render(request, 'EvacApp/register.html', context)
+
+
+def register_place(request):
+    if request.POST == 'POST':
+        form = PlaceProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'The profile for your safe space has been created.')
+            return redirect('')
+
+    else:
+        form = PlaceProfileForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'EvacApp/register_place.html', context)
