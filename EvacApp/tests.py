@@ -1,7 +1,12 @@
 from django.contrib.auth.models import User
-from django.test import TestCase
-from django.urls import reverse
+from django.test import TestCase, Client
+from django.urls import reverse, resolve
 from django import forms
+from bs4 import BeautifulSoup
+import requests
+from EvacApp import views
+import EvacApp.templates.EvacApp
+
 
 from EvacApp.forms import CustomUserCreationForm
 
@@ -28,3 +33,50 @@ class TestCustomUserCreationForm(TestCase):
             user1 = userForm.save()
             self.assertEquals(user1.username, user.username)
             self.assertEquals(user1.password1, user.password)
+
+
+
+class TestHTMLPageLinks(TestCase):
+
+    # Tests the index.html file has an href to the register page
+    def test_home_page_link_to_register_page(self):
+
+        soup = BeautifulSoup(open('EvacApp/templates/EvacApp/index.html', 'r'), 'html.parser')
+        link_text = ""
+        for a in soup.find_all('a', href=True):
+            link_text = a['href']
+        self.assertEquals(link_text, '../register/')
+
+class TestUrls(TestCase):
+
+    def test_home_page(self):
+        c = Client()
+        response = c.post('')
+        self.assertEquals(response.status_code, 200)
+
+    def test_register_page(self):
+        c = Client()
+        response = c.post('/register/')
+        self.assertEquals(response.status_code, 200)
+
+
+class TestHTMLPageLinks(TestCase):
+
+    # Tests the register.html file has an href to the index page
+    def test_register_page_link_to_home_page(self):
+        soup = BeautifulSoup(open('EvacApp/templates/EvacApp/register.html', 'r'), 'html.parser')
+        link_text = ""
+        for a in soup.find_all('a', href=True):
+            link_text = a['href']
+        # print("Link: " + link_text)
+        self.assertEquals(link_text, '../')
+
+            # Tests the register_place.html file has an href to the index page
+    def test_register_place_page_link_to_home_page(self):
+        soup = BeautifulSoup(open('EvacApp/templates/EvacApp/register_place.html', 'r'), 'html.parser')
+        link_text = ""
+        for a in soup.find_all('a', href=True):
+            link_text = a['href']
+        # print("Link: " + link_text)
+        self.assertEquals(link_text, '../')
+

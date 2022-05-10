@@ -44,3 +44,6 @@ def register_place(request):
         'form': form
     }
     return render(request, 'EvacApp/register_place.html', context)
+
+def map(request):
+    return
