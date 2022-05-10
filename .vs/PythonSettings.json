@@ -1,4 +1,4 @@
 {
   "TestFramework": "Pytest",
-  "Interpreter": "djangoEvac\\Scripts\\python.exe"
+  "Interpreter": "venv\\venv\\Scripts\\python.exe"
 }

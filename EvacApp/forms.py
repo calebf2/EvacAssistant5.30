@@ -5,15 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.forms.fields import EmailField
 from django.forms.forms import Form
-
+from .models import AddressProfile
 
 # Form for registering users
 class CustomUserCreationForm(UserCreationForm):
 
     # A username and 2 passwords will be in the form
-    username = forms.CharField(label='username', min_length=5, max_length=150)
-    password1 = forms.CharField(label='password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    username = forms.CharField(label='Username', min_length=5, max_length=150)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
 
     # Checks for already registered username
     def username_clean(self):
@@ -43,25 +43,15 @@ class CustomUserCreationForm(UserCreationForm):
 
 # Form for registering places
 class PlaceProfileForm(forms.ModelForm):
-    address = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
-    town = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
-    county = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
-    zip_code = forms.CharField(max_length=8, required=True, widget=forms.HiddenInput())
-    country = forms.CharField(max_length=40, required=True, widget=forms.HiddenInput())
-    longitude = forms.CharField(max_length=50, required=True, widget=forms.HiddenInput())
-    latitude = forms.CharField(max_length=50, required=True, widget=forms.HiddenInput())
+    address = forms.CharField(label='Address', min_length=5, max_length=100, required=True, widget=forms.HiddenInput())
+    town = forms.CharField(label='Town', min_length=5, max_length=100, required=True, widget=forms.HiddenInput())
+    county = forms.CharField(label='County', min_length=5, max_length=100, required=True, widget=forms.HiddenInput())
+    zip_code = forms.CharField(label='ZIP', min_length=5, max_length=8, required=True, widget=forms.HiddenInput())
+    country = forms.CharField(label='Country', min_length=5, max_length=40, required=True, widget=forms.HiddenInput())
+    longitude = forms.CharField(label='Longitude', min_length=5, max_length=50, required=False, widget=forms.HiddenInput())
+    latitude = forms.CharField(label='Latitude', min_length=5, max_length=50, required=False, widget=forms.HiddenInput())
 
-    # Checks for already registered username
-    def address_clean(self):
-        address = self.cleaned_data['address'].lower()
-        new = User.objects.filter(username=address)
-        if new.count():
-            raise ValidationError("Address Already Exist")
-        return address
 
-    # Saves the username and passwords to the user
-    def save_addr(self, commit=True):
-        user = User.objects.create_user(
-            self.cleaned_data['address'],
-        )
-        return user
+    class Meta:
+        model = AddressProfile
+        fields = ('address', 'town', 'county', 'zip_code', 'country', 'longitude', 'latitude')
