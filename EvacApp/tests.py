@@ -7,7 +7,6 @@ import requests
 from EvacApp import views
 import EvacApp.templates.EvacApp
 
-
 from EvacApp.forms import CustomUserCreationForm
 
 
@@ -27,25 +26,34 @@ class TestCustomUserCreationForm(TestCase):
             password='password123'
         )
         userForm = CustomUserCreationForm(
-            data={'username': 'username', 'password1': 'password', 'password2': 'password'})
+            data={'username': 'username', 'password1': 'password', 'password2': 'password'}
+        )
 
         if userForm.is_valid():
             user1 = userForm.save()
             self.assertEquals(user1.username, user.username)
             self.assertEquals(user1.password1, user.password)
 
+    def test_form_password_validation(self):
+        user = User.objects.create_user(
+            username='username',
+            password='12345678'
+        )
+        userForm = CustomUserCreationForm(
+            data={'username': 'username', 'password1': 'password', 'password2': 'password'}
+        )
 
 
 class TestHTMLPageLinks(TestCase):
 
     # Tests the index.html file has an href to the register page
     def test_home_page_link_to_register_page(self):
-
         soup = BeautifulSoup(open('EvacApp/templates/EvacApp/index.html', 'r'), 'html.parser')
         link_text = ""
         for a in soup.find_all('a', href=True):
             link_text = a['href']
         self.assertEquals(link_text, '../register/')
+
 
 class TestUrls(TestCase):
 
@@ -70,4 +78,3 @@ class TestHTMLPageLinks(TestCase):
             link_text = a['href']
         # print("Link: " + link_text)
         self.assertEquals(link_text, '../')
-
