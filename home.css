@@ -1,0 +1,44 @@
+.masthead{
+	background-size: cover;
+	min-height: 100vh;
+	position: relative;
+	color: white;
+	text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+}
+h1{
+	font-size: 4rem
+}
+
+.color-overlay{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.2);
+}
+
+@media (max-width: 768px) {
+	.masthead{
+		min-height: 30vh;
+	}
+	h1{
+		font-size: calc(1.525rem + 3.3vs);
+	}
+}
+
+.navbar {
+    background:
+}
+.nav-link,
+.navbar-brand {
+    color: #02c9d9;
+    cursor: pointer;
+}
+.nav-link {
+    margin-right: 1em !important;
+}
+.nav-link:hover {
+    color: #7df1fa;
+}
+.navbar-collapse {
+    justify-content: flex-end;
+}
