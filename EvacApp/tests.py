@@ -34,14 +34,37 @@ class TestCustomUserCreationForm(TestCase):
             self.assertEquals(user1.username, user.username)
             self.assertEquals(user1.password1, user.password)
 
+    # Test the form validates the passwords
     def test_form_password_validation(self):
-        user = User.objects.create_user(
+        # Invalid password, password less than 8 characters and all numerical
+        user1 = User.objects.create_user(
             username='username',
-            password='12345678'
+            password='123'
         )
         userForm = CustomUserCreationForm(
-            data={'username': 'username', 'password1': 'password', 'password2': 'password'}
+            data={'username': user1.username, 'password1': user1.password, 'password2': user1.password}
         )
+        self.assertIs(userForm.is_valid(), False)
+
+        # Invalid password, password less than 8 characters
+        user2 = User.objects.create_user(
+            username='username2',
+            password='abc4567'
+        )
+        userForm2 = CustomUserCreationForm(
+            data={'username': user2.username, 'password1': user2.password, 'password2': user2.password}
+        )
+        self.assertIs(userForm2.is_valid(), False)
+
+        # Invalid password, more than 8 characters but not alphanumeric
+        user3 = User.objects.create_user(
+            username='user3Valid',
+            password='12121212'
+        )
+        userForm3 = CustomUserCreationForm(
+            data={'username': user3.username, 'password1': user3.password, 'password2': user3.password}
+        )
+        self.assertIs(userForm3.is_valid(), False)
 
 
 class TestHTMLPageLinks(TestCase):
