@@ -6,6 +6,8 @@ from django.core.exceptions import ValidationError
 from django.forms.fields import EmailField
 from django.forms.forms import Form
 from .models import AddressProfile
+from django.db import models
+from django_google_maps import fields as map_fields
 
 # Form for registering users
 class CustomUserCreationForm(UserCreationForm):
@@ -42,7 +44,7 @@ class CustomUserCreationForm(UserCreationForm):
         return user
 
 # Form for registering places
-class PlaceProfileForm(forms.ModelForm):
+class PlaceProfileForm(UserCreationForm):
     address = forms.CharField(label='Address', min_length=5, max_length=100, required=True, widget=forms.HiddenInput())
     town = forms.CharField(label='Town', min_length=5, max_length=100, required=True, widget=forms.HiddenInput())
     county = forms.CharField(label='County', min_length=5, max_length=100, required=True, widget=forms.HiddenInput())
@@ -52,6 +54,6 @@ class PlaceProfileForm(forms.ModelForm):
     latitude = forms.CharField(label='Latitude', min_length=5, max_length=50, required=False, widget=forms.HiddenInput())
 
 
-    class Meta:
-        model = AddressProfile
-        fields = ('address', 'town', 'county', 'zip_code', 'country', 'longitude', 'latitude')
+class DisplayMap(models.Model):
+    address = map_fields.AddressField(max_length=200)
+    geolocation = map_fields.GeoLocationField(max_length=100)
