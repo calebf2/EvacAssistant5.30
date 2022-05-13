@@ -77,7 +77,6 @@ class TestHTMLPageLinks(TestCase):
             link_text = a['href']
         self.assertEquals(link_text, '../register/')
 
-
 class TestUrls(TestCase):
 
     def test_home_page(self):
@@ -96,6 +95,15 @@ class TestHTMLPageLinks(TestCase):
     # Tests the register.html file has an href to the index page
     def test_register_page_link_to_home_page(self):
         soup = BeautifulSoup(open('EvacApp/templates/EvacApp/register.html', 'r'), 'html.parser')
+        link_text = ""
+        for a in soup.find_all('a', href=True):
+            link_text = a['href']
+        # print("Link: " + link_text)
+        self.assertEquals(link_text, '../')
+
+            # Tests the register_place.html file has an href to the index page
+    def test_register_place_page_link_to_home_page(self):
+        soup = BeautifulSoup(open('EvacApp/templates/EvacApp/register_place.html', 'r'), 'html.parser')
         link_text = ""
         for a in soup.find_all('a', href=True):
             link_text = a['href']

@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import forms
-from .forms import CustomUserCreationForm, PlaceProfileForm
+from .forms import CustomUserCreationForm, DisplayMap, PlaceProfileForm
 
 
 # Create your views here.
@@ -43,3 +43,18 @@ def register_place(request):
         'form': form
     }
     return render(request, 'EvacApp/register_place.html', context)
+
+def map(request):
+    if request.POST == 'POST':
+        form = DisplayMap(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Map Display.')
+            return redirect('')
+
+    else:
+        form = DisplayMap()
+    context = {
+        'form': form
+    }
+    return render(request, 'EvacApp/map.html', context)
