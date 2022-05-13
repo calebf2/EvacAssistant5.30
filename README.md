@@ -7,3 +7,7 @@ When running the code, ensure the following dependencies are installed on your e
 	-crispy-forms
 
 It is important to note that you will need a Django secret key, and a Google API key to run this project.
+
+For the website, to run it make sure all of the files in develop besides those in folders and those called gitignore, manage.py, README.md, 
+or requirements.txt are in the same folder. Double click on any of the html files besides login and register. You should be able to navigate 
+through the website using the navigation bar.
