@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import forms
-from .forms import CustomUserCreationForm, DisplayMap, PlaceProfileForm
+from .forms import CustomUserCreationForm, PlaceProfileForm
 
 
 # Create your views here.

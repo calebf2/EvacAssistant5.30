@@ -7,7 +7,9 @@ from django.forms.fields import EmailField
 from django.forms.forms import Form
 from .models import AddressProfile
 from django.db import models
-from django_google_maps import fields as map_fields
+
+
+# from django_google_maps import fields as map_fields
 
 # Form for registering users
 class CustomUserCreationForm(UserCreationForm):
@@ -50,10 +52,11 @@ class PlaceProfileForm(UserCreationForm):
     county = forms.CharField(label='County', min_length=5, max_length=100, required=True, widget=forms.HiddenInput())
     zip_code = forms.CharField(label='ZIP', min_length=5, max_length=8, required=True, widget=forms.HiddenInput())
     country = forms.CharField(label='Country', min_length=5, max_length=40, required=True, widget=forms.HiddenInput())
-    longitude = forms.CharField(label='Longitude', min_length=5, max_length=50, required=False, widget=forms.HiddenInput())
-    latitude = forms.CharField(label='Latitude', min_length=5, max_length=50, required=False, widget=forms.HiddenInput())
+    longitude = forms.CharField(label='Longitude', min_length=5, max_length=50, required=False,
+                                widget=forms.HiddenInput())
+    latitude = forms.CharField(label='Latitude', min_length=5, max_length=50, required=False,
+                               widget=forms.HiddenInput())
 
-
-class DisplayMap(models.Model):
-    address = map_fields.AddressField(max_length=200)
-    geolocation = map_fields.GeoLocationField(max_length=100)
+# class DisplayMap(models.Model):
+# address = map_fields.AddressField(max_length=200)
+# geolocation = map_fields.GeoLocationField(max_length=100)
