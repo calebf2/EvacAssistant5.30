@@ -28,3 +28,10 @@ def register(request):
         'form': form
     }
     return render(request, 'EvacApp/register.html', context)
+
+
+def maps(request):
+    # TODO: move this token to Django settings from an environment variable
+    mapbox_access_token = 'pk.eyJ1IjoiY253YW5ndzEiLCJhIjoiY2wzd2Rvc29jMTM3ODNicDQ3Z3NhZmY2ZCJ9.vcHr-TYH3V9p1f-KyLtrCg'
+    return render(request, 'maps.html',
+                  {'mapbox_access_token': mapbox_access_token})

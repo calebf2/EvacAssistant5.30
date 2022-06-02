@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.urls import re_path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('EvacApp.urls')),
     path('register', include('EvacApp.urls')),
     #path('', include('main.urls', namespace="main"))
-
+    re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict'))
 ]
 
 #if settings.DEBUG:

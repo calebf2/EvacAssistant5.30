@@ -11,6 +11,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+GEOIP_PATH = os.path.join(BASE_DIR,'geoip')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -21,9 +22,9 @@ from decouple import config
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -35,8 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms'
+    'crispy_forms',
+    'iprestrict',
 ]
+
+IPRESTRICT_GEOIP_ENABLED = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -112,7 +116,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-GOOGLE_API_KEY = 'AIzaSyBNSTtqV5RZuxTUWKrJyiML9U6p0FIVu5c'
+GOOGLE_API_KEY = config("GOOGLE_KEY")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
